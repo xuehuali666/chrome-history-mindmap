@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <div class="tab-bar">
+      <div class="tab active" data-tab="history">浏览历史</div>
+      <div class="tab" data-tab="tags">我的标签</div>
+      <div class="settings-btn" id="settings-btn" title="设置">&#9881;</div>
+    </div>
+
+    <div id="history-toolbar" class="toolbar">
+      <span class="toolbar-label">时间:</span>
+      <select id="time-range">
+        <option value="1">今天</option>
+        <option value="7" selected>7天</option>
+        <option value="30">30天</option>
+        <option value="90">3个月</option>
+      </select>
+    </div>
+
+    <div id="tags-toolbar" class="toolbar" style="display:none">
+      <button id="add-page-btn" class="btn-primary">+ 添加当前页面到标签</button>
+    </div>
+
+    <div id="history-view" class="view">
+      <div id="history-tree" class="mind-map"></div>
+    </div>
+    <div id="tags-view" class="view" style="display:none">
+      <div id="tags-tree" class="mind-map"></div>
+    </div>
+  </div>
+
+  <!-- Settings Modal -->
+  <div id="settings-modal" class="modal-overlay" style="display:none">
+    <div class="modal">
+      <h3>设置</h3>
+      <div class="modal-section">
+        <label class="checkbox-label">
+          <input type="checkbox" id="use-site-name">
+          用网站名称代替域名显示
+        </label>
+        <div class="hint">从网页标题中提取网站名称</div>
+      </div>
+      <div class="modal-section">
+        <label>去重方式:</label>
+        <div class="radio-group">
+          <label class="radio-label"><input type="radio" name="dedupe" value="none" checked> 不去重</label>
+          <label class="radio-label"><input type="radio" name="dedupe" value="url"> 按网址去重</label>
+          <label class="radio-label"><input type="radio" name="dedupe" value="title"> 按标题去重</label>
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button id="save-settings" class="btn-primary">保存</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tag Modal -->
+  <div id="tag-modal" class="modal-overlay" style="display:none">
+    <div class="modal">
+      <h3>添加到标签</h3>
+      <div class="modal-section">
+        <label>选择已有标签:</label>
+        <div id="tag-list" class="tag-options"></div>
+      </div>
+      <div class="modal-section">
+        <label>或输入新标签名:</label>
+        <input type="text" id="new-tag-name" placeholder="新标签名..." autocomplete="off">
+      </div>
+      <div class="modal-section">
+        <label>显示名称 <span class="hint">(直接回车使用网页标题)</span>:</label>
+        <input type="text" id="display-name" placeholder="" autocomplete="off">
+      </div>
+      <div class="modal-actions">
+        <button id="confirm-add" class="btn-primary">确定</button>
+        <button id="cancel-add" class="btn-secondary">取消</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Edit Domain Name Modal -->
+  <div id="edit-domain-modal" class="modal-overlay" style="display:none">
+    <div class="modal" style="width:320px">
+      <h3>编辑显示名称</h3>
+      <div class="modal-section">
+        <label>域名: <span id="edit-domain-original"></span></label>
+        <input type="text" id="edit-domain-name" placeholder="输入自定义名称..." autocomplete="off">
+      </div>
+      <div class="modal-actions">
+        <button id="save-domain-name" class="btn-primary">保存</button>
+        <button id="reset-domain-name" class="btn-secondary">重置</button>
+        <button id="cancel-edit-domain" class="btn-secondary">取消</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

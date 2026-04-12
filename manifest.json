@@ -1,0 +1,16 @@
+{
+  "manifest_version": 3,
+  "name": "浏览历史思维导图",
+  "version": "1.0.0",
+  "description": "以思维导图形式展示浏览器历史记录，按域名分类，支持自定义标签收藏网页",
+  "permissions": [
+    "history",
+    "tabs",
+    "storage",
+    "activeTab"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "浏览历史思维导图"
+  }
+}
