@@ -20,7 +20,18 @@
         <option value="7" selected>7天</option>
         <option value="30">30天</option>
         <option value="90">3个月</option>
+        <option value="0">全部</option>
       </select>
+      <span class="toolbar-sep"></span>
+      <span class="toolbar-label">筛选:</span>
+      <select id="filter-group">
+        <option value="all">全部分组</option>
+      </select>
+      <select id="filter-star">
+        <option value="all">全部</option>
+        <option value="starred">仅收藏</option>
+      </select>
+      <button id="export-btn" class="btn-small" title="导出数据">&#8615;</button>
     </div>
 
     <div id="tags-toolbar" class="toolbar" style="display:none">
@@ -37,13 +48,10 @@
 
   <!-- Settings Modal -->
   <div id="settings-modal" class="modal-overlay" style="display:none">
-    <div class="modal">
+    <div class="modal" style="width:420px;max-height:480px;overflow-y:auto">
       <h3>设置</h3>
       <div class="modal-section">
-        <label class="checkbox-label">
-          <input type="checkbox" id="use-site-name">
-          用网站名称代替域名显示
-        </label>
+        <label class="checkbox-label"><input type="checkbox" id="use-site-name"> 用网站名称代替域名显示</label>
         <div class="hint">从网页标题中提取网站名称</div>
       </div>
       <div class="modal-section">
@@ -53,6 +61,17 @@
           <label class="radio-label"><input type="radio" name="dedupe" value="url"> 按网址去重</label>
           <label class="radio-label"><input type="radio" name="dedupe" value="title"> 按标题去重</label>
         </div>
+      </div>
+      <div class="modal-section">
+        <label class="checkbox-label"><input type="checkbox" id="show-favicon"> 显示网站图标</label>
+      </div>
+      <div class="modal-section">
+        <label class="checkbox-label"><input type="checkbox" id="enable-groups"> 启用分组功能</label>
+        <div class="hint">将域名归类到自定义分组中，形成三层结构</div>
+      </div>
+      <div class="modal-section">
+        <label class="checkbox-label"><input type="checkbox" id="enable-star"> 启用收藏功能</label>
+        <div class="hint">用星标标记域名或页面，可按收藏筛选</div>
       </div>
       <div class="modal-actions">
         <button id="save-settings" class="btn-primary">保存</button>
@@ -91,10 +110,48 @@
         <label>域名: <span id="edit-domain-original"></span></label>
         <input type="text" id="edit-domain-name" placeholder="输入自定义名称..." autocomplete="off">
       </div>
+      <div id="edit-domain-group-section" class="modal-section" style="display:none">
+        <label>分组:</label>
+        <div id="edit-domain-groups" class="tag-options" style="margin-bottom:6px"></div>
+        <input type="text" id="edit-domain-new-group" placeholder="新建分组..." autocomplete="off">
+      </div>
       <div class="modal-actions">
         <button id="save-domain-name" class="btn-primary">保存</button>
         <button id="reset-domain-name" class="btn-secondary">重置</button>
         <button id="cancel-edit-domain" class="btn-secondary">取消</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick Add Modal (for keyboard shortcut) -->
+  <div id="quick-add-modal" class="modal-overlay" style="display:none">
+    <div class="modal" style="width:340px">
+      <h3>快速添加到标签</h3>
+      <div class="modal-section">
+        <input type="text" id="quick-tag-input" placeholder="输入标签名（下拉选择已有）" autocomplete="off">
+        <div id="quick-tag-suggest" class="suggest-list" style="display:none"></div>
+      </div>
+      <div class="modal-section">
+        <label>显示名称 <span class="hint">(回车用标题)</span>:</label>
+        <input type="text" id="quick-display-name" placeholder="" autocomplete="off">
+      </div>
+      <div class="modal-actions">
+        <button id="quick-confirm" class="btn-primary">确定</button>
+        <button id="quick-cancel" class="btn-secondary">取消</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Edit Tag Item Modal -->
+  <div id="edit-tag-item-modal" class="modal-overlay" style="display:none">
+    <div class="modal" style="width:300px">
+      <h3>编辑名称</h3>
+      <div class="modal-section">
+        <input type="text" id="edit-tag-item-name" placeholder="显示名称..." autocomplete="off">
+      </div>
+      <div class="modal-actions">
+        <button id="save-tag-item-name" class="btn-primary">保存</button>
+        <button id="cancel-edit-tag-item" class="btn-secondary">取消</button>
       </div>
     </div>
   </div>
